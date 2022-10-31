@@ -3,12 +3,17 @@
     order geoip first
     log {
         level DEBUG
+        format filter {
+        	wrap console
+        	fields {
+        		request geoip ./test-data/GeoLite2-City.mmdb
+        	}
+        }
     }
 }
 
-
 caddy.local {
-    geoip * /test-data/GeoLite2-City.mmdb
+    geoip ./test-data/GeoLite2-City.mmdb
     header X-Country-Code "{geoip_country_code}"
     reverse_proxy 127.0.0.1:2109
 }
