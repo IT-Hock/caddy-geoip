@@ -1,0 +1,14 @@
+{
+    debug
+    order geoip first
+    log {
+        level DEBUG
+    }
+}
+
+
+caddy.local {
+    geoip * /test-data/GeoLite2-City.mmdb
+    header X-Country-Code "{geoip_country_code}"
+    reverse_proxy 127.0.0.1:2109
+}

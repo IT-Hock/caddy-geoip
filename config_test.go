@@ -10,7 +10,14 @@ import (
 func TestParseConfig(t *testing.T) {
 	h := httpcaddyfile.Helper{
 		Dispenser: caddyfile.NewTestDispenser(`
-		geoip path/to/maxmind/db
+		log {
+			level DEBUG
+			output file /var/log/caddy/test.log
+			format json
+		}
+		geoip /etc/caddy/GeoLite2-City.mmdb
+		geoip /path/to/db.mmdb
+		header X-Country-Code {geoip_country_code}
 		`),
 	}
 	actual, err := parseCaddyfile(h)
@@ -19,7 +26,7 @@ func TestParseConfig(t *testing.T) {
 		t.Errorf("parseConfig return err: %v", err)
 	}
 	expected := Config{
-		DatabasePath: "path/to/maxmind/db",
+		DatabasePath: "/etc/caddy/GeoLite2-City.mmdb",
 	}
 	if expected != got {
 		t.Errorf("Expected %v got %v", expected, got)
