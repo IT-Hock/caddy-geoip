@@ -37,15 +37,21 @@ including private addresses such as 192.168.0.1, the values will be `!!`,
 (1) Set database path and return country code header:
 
 ```
-geoip /path/to/db/GeoLite2-City.mmdb
-header Country-Code {geoip_country_code}
+{
+    order geoip first
+}
+
+example.com {
+    geoip * /path/to/db/GeoLite2-City.mmdb
+    header Country-Code {geoip_country_code}
+}
 ```
 
 (2) Proxy pass headers to backend:
 
 ```
 localhost
-geoip /path/to/db/GeoLite2-City.mmdb
+geoip * /path/to/db/GeoLite2-City.mmdb
 proxy / localhost:3000 {
   header_upstream Country-Name {geoip_country_name}
   header_upstream Country-Code {geoip_country_code}
