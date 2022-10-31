@@ -14,9 +14,13 @@ type Config struct {
 // UnmarshalCaddyfile implements caddyfile.Unmarshaler.
 func (g *GeoIP) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 	for d.Next() {
-		if !d.Args(&g.Config.DatabasePath) {
+		/*if !d.Args(&g.Config.DatabasePath) {
+			return d.ArgErr()
+		}*/
+		if !d.NextArg() {
 			return d.ArgErr()
 		}
+		g.Config.DatabasePath = d.Val()
 	}
 	return nil
 }
