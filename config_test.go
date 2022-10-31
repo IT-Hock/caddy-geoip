@@ -15,8 +15,8 @@ func TestParseConfig(t *testing.T) {
 			output file /var/log/caddy/test.log
 			format json
 		}
-		geoip /path/to/db.mmdb
 		geoip /etc/caddy/GeoLite2-City.mmdb
+		geoip /path/to/db.mmdb
 		header X-Country-Code {geoip_country_code}
 		`),
 	}
