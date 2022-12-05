@@ -6,7 +6,7 @@ require (
 	github.com/caddyserver/caddy/v2 v2.5.0
 	github.com/mmcloughlin/geohash v0.10.0
 	github.com/oschwald/maxminddb-golang v1.10.0
-	go.uber.org/zap v1.21.0
+	go.uber.org/zap v1.24.0
 )
 
 require (
